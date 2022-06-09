@@ -2,16 +2,16 @@
 //Random algorithm from there:
 //https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Math/random
 const getRandomNumber = (min, max) => {
-  if(min < 0 || max < 0) {
-    throw new Error('Input value of min or max < 0');
+  if(min < 0 || max < 0 || min === max) {
+    throw new Error('Min/max values is incorrect.');
   }
   if(min > max) {
     [min, max] = [max, min]; // if min > max => mixing values
   }
   min = Math.ceil(min);
   max = Math.floor(max);
-  const randNumber = Math.random() * (max - min + 1) + min;
-  return Math.round(randNumber);
+  const randNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+  return randNumber;
 };
 
 //Function to check text for max length
