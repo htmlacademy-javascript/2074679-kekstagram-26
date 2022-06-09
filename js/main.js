@@ -16,7 +16,7 @@ const getRandomNumber = (min, max) => {
 
 //Function to check text for max length
 const checkMaxLength = (text, maxLength) => {
-  if(text.length <= maxLength) {
+  if(text.toString().length <= maxLength) {
     return true;
   } else {
     return false;
