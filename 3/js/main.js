@@ -95,7 +95,7 @@ const createRandomCommentsMap = (commentsQuantity = 100) => {
 
 const createRandomPhotosMap = (photosQuantity = 25) => {
   const randomPhotosMap = [];
-  const photoComments = createRandomCommentsMap();
+  const randomCommentsMap = createRandomCommentsMap();
   for(let i = 0; i <= photosQuantity-1; i++) {
     const commentsQuantityForPhoto = getRandomNumberFromRange(1, 7); // quntity of comment for 1 post photo
     randomPhotosMap.push({
@@ -103,7 +103,7 @@ const createRandomPhotosMap = (photosQuantity = 25) => {
       url: `photos/{{${i+1}}}.jpg`,
       description: getRandomElementFromArray(PHOTO_DESCRIPTION),
       likes: getRandomNumberFromRange(15,200),
-      comments: getManyRandomElementsFromArray(photoComments, commentsQuantityForPhoto)
+      comments: getManyRandomElementsFromArray(randomCommentsMap, commentsQuantityForPhoto)
     });
   }
   return randomPhotosMap;
