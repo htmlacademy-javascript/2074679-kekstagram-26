@@ -51,7 +51,7 @@ const COMMENTS = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
 
-const PHOTO_DESCRIPTION = [
+const PHOTO_DESCRIPTIONS = [
   'Lorem ipsum dolor sit amet.',
   'Lorem, ipsum.',
   'Lorem ipsum dolor sit.',
@@ -101,7 +101,7 @@ const createRandomPhotosMap = (photosQuantity = 25) => {
     randomPhotosMap.push({
       id: i+1,
       url: `photos/{{${i+1}}}.jpg`,
-      description: getRandomElementFromArray(PHOTO_DESCRIPTION),
+      description: getRandomElementFromArray(PHOTO_DESCRIPTIONS),
       likes: getRandomNumberFromRange(15,200),
       comments: getManyRandomElementsFromArray(randomCommentsMap, commentsQuantityForPhoto)
     });
