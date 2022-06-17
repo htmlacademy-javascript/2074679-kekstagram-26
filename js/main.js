@@ -1,46 +1,5 @@
 ///Task 4.15 - more details
-const COMMENTATOR_NAMES = [
-  {
-    id: 5,
-    name: 'Михаил'
-  },
-  {
-    id: 8,
-    name: 'Владимир'
-  },
-  {
-    id: 16,
-    name: 'Мария'
-  },
-  {
-    id: 29,
-    name: 'Константин'
-  },
-  {
-    id: 23,
-    name: 'Татьяна'
-  },
-  {
-    id: 12,
-    name: 'Наталья'
-  },
-  {
-    id: 87,
-    name: 'Анастасия'
-  },
-  {
-    id: 52,
-    name: 'Виктория'
-  },
-  {
-    id: 10,
-    name: 'Алексей'
-  },
-  {
-    id: 46,
-    name: 'Степан'
-  }
-];
+const COMMENTATOR_NAMES = ['Михаил', 'Владимир', 'Мария', 'Константин', 'Татьяна', 'Наталья', 'Анастасия', 'Виктория', 'Алексей', 'Степан'];
 
 const COMMENTS = [
   'Всё отлично!',
@@ -62,6 +21,9 @@ const PHOTO_DESCRIPTIONS = [
   'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores.'
 ];
 
+const COMMENTS_COUNT = 100;
+const POSTS_COUNT = 25;
+
 //Function to generate random integer inclusive
 const getRandomNumberFromRange = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
@@ -78,35 +40,37 @@ const getManyRandomElementsFromArray = (array, quantity) => {
   return randomElements;
 };
 
-const createRandomCommentsMap = (commentsQuantity = 100) => {
-  const randomCommentsMap = [];
-  for(let i = 0; i < commentsQuantity; i++) {
+const generateRandomComments = (commentsQuantity = COMMENTS_COUNT) => {
+  const result = [];
+  for(let i = 1; i < commentsQuantity+1; i++) {
     const randomCommentator = getRandomElementFromArray(COMMENTATOR_NAMES);
     const randomComment = getRandomElementFromArray(COMMENTS);
-    randomCommentsMap.push({
-      id: i+1,
-      avatar: `img/avatar-${randomCommentator.id}.svg`,
+    result.push({
+      id: i,
+      avatar: `img/avatar-${getRandomNumberFromRange(1, 6)}.svg`,
       message: randomComment,
-      name: randomCommentator.name
+      name: randomCommentator
     });
   }
-  return randomCommentsMap;
+  return result;
 };
 
-const createRandomPhotosMap = (photosQuantity = 25) => {
-  const randomPhotosMap = [];
-  const randomCommentsMap = createRandomCommentsMap();
-  for(let i = 0; i <= photosQuantity-1; i++) {
-    const commentsQuantityForPhoto = getRandomNumberFromRange(1, 7); // quntity of comment for 1 post photo
-    randomPhotosMap.push({
-      id: i+1,
-      url: `photos/{{${i+1}}}.jpg`,
+const generateRandomPosts = (photosQuantity = POSTS_COUNT) => {
+  const result = [];
+  const commentsArray = generateRandomComments();
+  for(let i = 1; i <= photosQuantity; i++) {
+    const commentsForPost = getRandomNumberFromRange(1, 7); // quntity of comment for 1 post photo
+    result.push({
+      id: i,
+      url: `photos/{{${i}}}.jpg`,
       description: getRandomElementFromArray(PHOTO_DESCRIPTIONS),
       likes: getRandomNumberFromRange(15,200),
-      comments: getManyRandomElementsFromArray(randomCommentsMap, commentsQuantityForPhoto)
+      comments: getManyRandomElementsFromArray(commentsArray, commentsForPost)
     });
   }
-  return randomPhotosMap;
+  return result;
 };
 
-createRandomPhotosMap(25);
+const map = generateRandomPosts(25);
+const comments = generateRandomComments();
+console.log(map);
