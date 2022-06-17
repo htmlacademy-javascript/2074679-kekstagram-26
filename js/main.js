@@ -71,6 +71,5 @@ const generateRandomPosts = (photosQuantity = POSTS_COUNT) => {
   return result;
 };
 
-const map = generateRandomPosts(25);
-const comments = generateRandomComments();
-console.log(map);
+generateRandomPosts(25);
+generateRandomComments();
