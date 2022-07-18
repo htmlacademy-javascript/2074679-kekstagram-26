@@ -1,3 +1,4 @@
 import {generateRandomPosts} from './generate-posts.js';
+import {renderPosts} from './render-posts.js';
 
-generateRandomPosts(25);
+renderPosts(generateRandomPosts(25));
