@@ -1,12 +1,14 @@
+const ESC_KEY = 'Escape';
+
 //Function to generate random integer inclusive
-const getRandomNumberFromRange = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+export const getRandomNumberFromRange = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
 //Function to check text for max length
-const checkCommentMaxLength = (text, maxLength) => text.length <= maxLength;
+export const checkCommentMaxLength = (text, maxLength) => text.length <= maxLength;
 
-const getRandomElementFromArray = (array) => array[getRandomNumberFromRange(0, array.length-1)];
+export const getRandomElementFromArray = (array) => array[getRandomNumberFromRange(0, array.length-1)];
 
-const getManyRandomElementsFromArray = (array, quantity) => {
+export const getManyRandomElementsFromArray = (array, quantity) => {
   const randomElements = [];
   for(let i = 0; i < quantity; i++) {
     randomElements[i] = getRandomElementFromArray(array);
@@ -14,4 +16,4 @@ const getManyRandomElementsFromArray = (array, quantity) => {
   return randomElements;
 };
 
-export {getRandomNumberFromRange, getRandomElementFromArray, getManyRandomElementsFromArray, checkCommentMaxLength};
+export const checkIsEscPressed = (evt) => evt.key === ESC_KEY;
