@@ -42,7 +42,7 @@ const generateRandomComments = (commentsQuantity = COMMENTS_COUNT) => {
   return result;
 };
 
-const generateRandomPosts = (photosQuantity = POSTS_COUNT) => {
+export const generateRandomPosts = (photosQuantity = POSTS_COUNT) => {
   const result = [];
   const commentsArray = generateRandomComments();
   for(let i = 1; i <= photosQuantity; i++) {
@@ -57,5 +57,3 @@ const generateRandomPosts = (photosQuantity = POSTS_COUNT) => {
   }
   return result;
 };
-
-export {generateRandomPosts};
