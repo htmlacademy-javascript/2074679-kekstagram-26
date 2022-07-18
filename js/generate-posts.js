@@ -49,7 +49,7 @@ const generateRandomPosts = (photosQuantity = POSTS_COUNT) => {
     const commentsForPost = getRandomNumberFromRange(1, 7); // quntity of comment for 1 post photo
     result.push({
       id: i,
-      url: `photos/{{${i}}}.jpg`,
+      url: `photos/${i}.jpg`,
       description: getRandomElementFromArray(PHOTO_DESCRIPTIONS),
       likes: getRandomNumberFromRange(15,200),
       comments: getManyRandomElementsFromArray(commentsArray, commentsForPost)
