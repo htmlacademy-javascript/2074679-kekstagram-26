@@ -54,7 +54,7 @@ function escPressHandler (evt) {
   }
 }
 
-export const renderPostModal = (post) => {
+export const renderModalPost = (post) => {
   postComments = post.comments;
   postContainer.classList.remove('hidden');
   document.body.classList.add('modal-open');
