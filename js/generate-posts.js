@@ -17,7 +17,7 @@ const PHOTO_DESCRIPTIONS = [
   'Lorem, ipsum.',
   'Lorem ipsum dolor sit.',
   'Lorem ipsum dolor sit amet, consectetur adipisicing.',
-  'Lorem, ipsum dolor sit amet consectetur adipisicing elit.',
+  'Lorem, ipsum dolor sit amet c onsectetur adipisicing elit.',
   'Lorem.',
   'Lorem ipsum dolor sit amet consectetur.',
   'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores.'
