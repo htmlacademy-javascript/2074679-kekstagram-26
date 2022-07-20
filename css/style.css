@@ -1410,3 +1410,8 @@ main {
 .hidden {
   display: none;
 }
+
+.pristine-error {
+  margin-bottom: 10px;
+  color: #e90000;
+}
