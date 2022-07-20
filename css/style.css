@@ -348,6 +348,8 @@ main {
   background-repeat: no-repeat;
   background-position: center;
 
+  transition: .1s;
+
   -webkit-filter: drop-shadow(0 0 10px #943106);
           filter: drop-shadow(0 0 10px #943106);
 }
@@ -1407,4 +1409,9 @@ main {
 
 .hidden {
   display: none;
+}
+
+.pristine-error {
+  margin-bottom: 10px;
+  color: #e90000;
 }

@@ -16,21 +16,20 @@ function handleEscPress (evt) {
   }
 }
 
-const getPostComments = (comments) => {
-  let commentList = '';
+const renderComments = (comments) => {
+  const commentsContainer = bigPictureContainer.querySelector('.social__comments');
+  const existMockComments = commentsContainer.querySelectorAll('.social__comment');
+  const commentTemplate = existMockComments[0];
+  existMockComments.forEach((comment) => comment.remove()); // deleting default comments in html template
+  const newComments = document.createDocumentFragment();
   comments.forEach((comment) => {
-    commentList += `
-    <li class="social__comment">
-    <img
-        class="social__picture"
-        src="${comment.avatar}"
-        alt="${comment.name}"
-        width="35" height="35">
-    <p class="social__text">${comment.message}</p>
-    </li>
-    `;
+    const newComment = commentTemplate.cloneNode(true);
+    newComment.querySelector('.social__picture').src = comment.avatar;
+    newComment.querySelector('.social__picture').alt = comment.name;
+    newComment.querySelector('.social__text').textContent = comment.message;
+    newComments.append(newComment);
   });
-  bigPictureContainer.querySelector('.social__comments').innerHTML = commentList;
+  commentsContainer.append(newComments);
 };
 
 export const renderModalPost = (post) => {
@@ -42,7 +41,7 @@ export const renderModalPost = (post) => {
   bigPictureContainer.querySelector('.likes-count').textContent = post.likes;
   bigPictureContainer.querySelector('.comments-count').textContent = post.comments.length;
   bigPictureContainer.querySelector('.social__caption').textContent = post.description;
-  getPostComments(post.comments);
+  renderComments(post.comments);
 
   window.addEventListener('keydown', handleEscPress);
   hideModalButton.addEventListener('click', hideModalPost);
