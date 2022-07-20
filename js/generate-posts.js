@@ -46,7 +46,7 @@ export const generateRandomPosts = (photosQuantity = POSTS_COUNT) => {
   const result = [];
   const commentsArray = generateRandomComments();
   for(let i = 1; i <= photosQuantity; i++) {
-    const commentsForPost = getRandomNumberFromRange(1, 7); // quntity of comment for 1 post photo
+    const commentsForPost = getRandomNumberFromRange(1, 15); // quntity of comment for 1 post photo
     result.push({
       id: i,
       url: `photos/${i}.jpg`,
