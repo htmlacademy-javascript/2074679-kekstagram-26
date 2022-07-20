@@ -1,7 +1,6 @@
 import { checkIsEscPressed } from './utils.js';
 const MAX_COMMENT_LENGTH = 140;
 const MAX_HASHTAGS_COUNT = 5;
-//const HASHTAG_REGEXP = /(^#[A-Za-zА-Яа-яЁё0-9]{1,19}\b\s?)((\b\s#[A-Za-zА-Яа-яЁё0-9]{1,19}\b\s?){1,4})?$/;
 const HASHTAG_REGEXP = /^#[A-Za-zА-Яа-яЁё0-9]{1,19}$/;
 
 const imageUploadForm = document.querySelector('.img-upload__form');
@@ -73,4 +72,3 @@ imageUploadForm.addEventListener('submit', (evt) => {
 });
 
 export const createPost = () => imageUploadInput.addEventListener('change', handleLoadImage);
-
