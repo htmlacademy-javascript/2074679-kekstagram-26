@@ -45,10 +45,10 @@ const closePostEditorModal = () => {
   imageUploadForm.reset();
   pristine.destroy();
   modalCloseButton.removeEventListener('click', closePostEditorModal);
-  window.removeEventListener('keydown', handleEscPress);
+  window.removeEventListener('keydown', escPressHandler);
 };
 
-function handleEscPress (evt) {
+function escPressHandler (evt) {
   if(checkIsEscPressed(evt)) {
     if(evt.target === hashTagInput || evt.target === descriptionInput) {
       return;
@@ -57,11 +57,11 @@ function handleEscPress (evt) {
   }
 }
 
-const handleLoadImage = () => {
+const imageLoadHandler = () => {
   postEditorModal.classList.remove('hidden');
   document.body.classList.add('modal-open');
   modalCloseButton.addEventListener('click', closePostEditorModal);
-  window.addEventListener('keydown', handleEscPress);
+  window.addEventListener('keydown', escPressHandler);
 };
 
 imageUploadForm.addEventListener('submit', (evt) => {
@@ -71,4 +71,4 @@ imageUploadForm.addEventListener('submit', (evt) => {
   hashTagInput.value = hashTagInput.value.trim().toLowerCase();
 });
 
-export const createPost = () => imageUploadInput.addEventListener('change', handleLoadImage);
+export const createPost = () => imageUploadInput.addEventListener('change', imageLoadHandler);
