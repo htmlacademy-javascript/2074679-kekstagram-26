@@ -54,7 +54,7 @@ function escPressHandler (evt) {
   }
 }
 
-export const renderModalPost = (post) => {
+export const renderPostModal = (post) => {
   postComments = post.comments;
   const renderedComments = commentsContainer.querySelectorAll('.social__comment');
   renderedComments.forEach((comment) => comment.remove());
