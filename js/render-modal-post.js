@@ -13,22 +13,22 @@ let renderedCommentsCount = 0;
 let postComments;
 
 const renderComments = () => {
-  let commentList = '';
+  const commentTemplate = document.querySelector('#comment').content;
   const commentsToRender = postComments.slice(renderedCommentsCount, renderedCommentsCount + SHOW_COMMENTS_AMOUNT);
   renderedCommentsCount += commentsToRender.length;
   if (postComments.length === renderedCommentsCount) {
     commentsLoadButton.classList.add('hidden');
   }
+  const newComments = document.createDocumentFragment();
   commentsToRender.forEach((comment) => {
-    commentList += `
-    <li class="social__comment">
-    <img class="social__picture" src="${comment.avatar}" alt="${comment.name}" width="35" height="35">
-    <p class="social__text">${comment.message}</p>
-  </li>
-    `;
+    const newComment = commentTemplate.cloneNode(true);
+    newComment.querySelector('.social__picture').src = comment.avatar;
+    newComment.querySelector('.social__picture').alt = comment.name;
+    newComment.querySelector('.social__text').textContent = comment.message;
+    newComments.append(newComment);
   });
-  commentsContainer.insertAdjacentHTML('beforeend', commentList);
-  commentsCountElement.innerHTML = `${renderedCommentsCount} из ${postComments.length} комментариев`;
+  commentsContainer.append(newComments);
+  commentsCountElement.textContent = `${renderedCommentsCount} из ${postComments.length} комментариев`;
 };
 
 const hidePostModal = () => {
