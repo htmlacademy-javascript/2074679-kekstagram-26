@@ -56,12 +56,13 @@ function escPressHandler (evt) {
 
 export const renderModalPost = (post) => {
   postComments = post.comments;
+  const renderedComments = commentsContainer.querySelectorAll('.social__comment');
+  renderedComments.forEach((comment) => comment.remove());
   postContainer.classList.remove('hidden');
   document.body.classList.add('modal-open');
   postContainer.querySelector('.big-picture__img').querySelector('img').src = post.url;
   postContainer.querySelector('.likes-count').textContent = post.likes;
   postContainer.querySelector('.social__caption').textContent = post.description;
-  commentsContainer.innerHTML = '';
   if (post.comments.length > SHOW_COMMENTS_AMOUNT) {
     commentsLoadButton.classList.remove('hidden');
     commentsLoadButton.addEventListener('click', renderComments);
