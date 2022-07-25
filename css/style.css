@@ -1415,3 +1415,7 @@ main {
   margin-bottom: 10px;
   color: #e90000;
 }
+
+.img-upload__preview img {
+  transition: transform .5s;
+}
