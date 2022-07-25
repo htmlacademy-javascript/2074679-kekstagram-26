@@ -2,51 +2,43 @@ import { checkIsEscPressed } from './utils.js';
 
 const SHOW_COMMENTS_AMOUNT = 5;
 
-const postContainer = document.querySelector('.big-picture');
-const hideModalButton = postContainer.querySelector('#picture-cancel');
-const postModalOverlay = document.querySelector('.overlay');
-const commentsContainer = postContainer.querySelector('.social__comments');
-const commentsCountElement = postContainer.querySelector('.social__comment-count');
-const commentsLoadButton = postContainer.querySelector('.comments-loader');
+const postContainerElement = document.querySelector('.big-picture');
+const hideModalButtonElement = postContainerElement.querySelector('#picture-cancel');
+const commentsContainerElement = postContainerElement.querySelector('.social__comments');
+const commentsCountElement = postContainerElement.querySelector('.social__comment-count');
+const commentsLoadButtonElement = postContainerElement.querySelector('.comments-loader');
 
 let renderedCommentsCount = 0;
 let postComments;
 
 const renderComments = () => {
-  const commentTemplate = document.querySelector('#comment').content;
+  const commentTemplateElement = document.querySelector('#comment').content;
   const commentsToRender = postComments.slice(renderedCommentsCount, renderedCommentsCount + SHOW_COMMENTS_AMOUNT);
   renderedCommentsCount += commentsToRender.length;
   if (postComments.length === renderedCommentsCount) {
-    commentsLoadButton.classList.add('hidden');
+    commentsLoadButtonElement.classList.add('hidden');
   }
   const newComments = document.createDocumentFragment();
   commentsToRender.forEach((comment) => {
-    const newComment = commentTemplate.cloneNode(true);
+    const newComment = commentTemplateElement.cloneNode(true);
     newComment.querySelector('.social__picture').src = comment.avatar;
     newComment.querySelector('.social__picture').alt = comment.name;
     newComment.querySelector('.social__text').textContent = comment.message;
     newComments.append(newComment);
   });
-  commentsContainer.append(newComments);
+  commentsContainerElement.append(newComments);
   commentsCountElement.textContent = `${renderedCommentsCount} из ${postComments.length} комментариев`;
 };
 
 const hidePostModal = () => {
   renderedCommentsCount = 0;
-  commentsCountElement.innerHTML = '';
-  postContainer.classList.add('hidden');
+  commentsCountElement.textContent = '';
+  postContainerElement.classList.add('hidden');
   document.body.classList.remove('modal-open');
-  hideModalButton.removeEventListener('click', hidePostModal);
+  hideModalButtonElement.removeEventListener('click', hidePostModal);
   window.removeEventListener('keydown', escPressHandler);
-  postModalOverlay.removeEventListener('click', postModalOverlayClickHandler);
-  commentsLoadButton.removeEventListener('click', renderComments);
+  commentsLoadButtonElement.removeEventListener('click', renderComments);
 };
-
-function postModalOverlayClickHandler (evt) {
-  if(evt.target === postModalOverlay) {
-    return hidePostModal();
-  }
-}
 
 function escPressHandler (evt) {
   if(checkIsEscPressed(evt)){
@@ -56,19 +48,18 @@ function escPressHandler (evt) {
 
 export const renderPostModal = (post) => {
   postComments = post.comments;
-  const renderedComments = commentsContainer.querySelectorAll('.social__comment');
+  const renderedComments = commentsContainerElement.querySelectorAll('.social__comment');
   renderedComments.forEach((comment) => comment.remove());
-  postContainer.classList.remove('hidden');
+  postContainerElement.classList.remove('hidden');
   document.body.classList.add('modal-open');
-  postContainer.querySelector('.big-picture__img').querySelector('img').src = post.url;
-  postContainer.querySelector('.likes-count').textContent = post.likes;
-  postContainer.querySelector('.social__caption').textContent = post.description;
+  postContainerElement.querySelector('.big-picture__img').querySelector('img').src = post.url;
+  postContainerElement.querySelector('.likes-count').textContent = post.likes;
+  postContainerElement.querySelector('.social__caption').textContent = post.description;
   if (post.comments.length > SHOW_COMMENTS_AMOUNT) {
-    commentsLoadButton.classList.remove('hidden');
-    commentsLoadButton.addEventListener('click', renderComments);
+    commentsLoadButtonElement.classList.remove('hidden');
+    commentsLoadButtonElement.addEventListener('click', renderComments);
   }
   renderComments();
   window.addEventListener('keydown', escPressHandler);
-  hideModalButton.addEventListener('click', hidePostModal);
-  postModalOverlay.addEventListener('click', postModalOverlayClickHandler);
+  hideModalButtonElement.addEventListener('click', hidePostModal);
 };
