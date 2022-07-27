@@ -1419,3 +1419,7 @@ main {
 .img-upload__preview img {
   transition: transform .5s;
 }
+
+.notification {
+  z-index: 100;
+}
