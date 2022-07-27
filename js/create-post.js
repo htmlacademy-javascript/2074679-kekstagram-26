@@ -166,22 +166,9 @@ function escPressHandler (evt) {
   }
 }
 
-const renderImagePreview = (evt) => {
-  const fileReader = new FileReader();
-  fileReader.onload = () => {
-    const imagePreviewThumbnailElements = document.querySelectorAll('.effects__preview');
-    imageElement.src = fileReader.result;
-    imagePreviewThumbnailElements.forEach((thumbnail) => {
-      thumbnail.style.backgroundImage = `url('${fileReader.result}')`;
-    });
-  };
-  fileReader.readAsDataURL(evt.target.files[0]);
-};
-
-const imageUploadHandler = (evt) => {
+const imageUploadHandler = () => {
   postCreateModalElement.classList.remove('hidden');
   document.body.classList.add('modal-open');
-  renderImagePreview(evt);
   postModalCloseButtonElement.addEventListener('click', hidePostCreateModal);
   window.addEventListener('keydown', escPressHandler);
   changeImageScaleContainerElement.addEventListener('click', changeImageScaleClickHandler);

@@ -2,6 +2,7 @@ const postsContainerElement = document.querySelector('.pictures');
 const postTemplateElement = document.querySelector('#picture').content.querySelector('.picture');
 
 export const renderPosts = (posts) => {
+  document.querySelectorAll('.picture').forEach((post) => post.remove());
   const postFragment = document.createDocumentFragment();
   posts.forEach((post) => {
     const newPost = postTemplateElement.cloneNode(true);
@@ -11,7 +12,6 @@ export const renderPosts = (posts) => {
     newPost.dataset.postId = post.id;
     postFragment.append(newPost);
   });
-
   postsContainerElement.append(postFragment);
 };
 

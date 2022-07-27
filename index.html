@@ -219,7 +219,7 @@
 
   <!-- Сообщение с ошибкой загрузки изображения -->
   <template id="error">
-    <section class="error">
+    <section class="error notification">
       <div class="error__inner">
         <h2 class="error__title">Ошибка загрузки файла</h2>
         <button type="button" class="error__button">Загрузить другой файл</button>
@@ -231,13 +231,14 @@
     <section class="error">
       <div class="error__inner">
         <h2 class="error__title">Ошибка загрузки постов</h2>
+        <button type="button" onClick="window.location.reload();" class="error__button">Перезагрузить страницу</button>
       </div>
     </section>
   </template>
 
   <!-- Сообщение об успешной загрузке изображения -->
   <template id="success">
-    <section class="success">
+    <section class="success notification">
       <div class="success__inner">
         <h2 class="success__title">Изображение успешно загружено</h2>
         <button type="button" class="success__button">Круто!</button>
