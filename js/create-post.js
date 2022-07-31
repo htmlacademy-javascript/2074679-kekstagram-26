@@ -9,19 +9,25 @@ const MAX_IMAGE_SCALE = 100;
 const MIN_IMAGE_SCALE = 25;
 const IMAGE_SCALE_CHANGE_STEP = 25;
 const IMAGE_EFFECTS = {
+  'effect-none': {
+    name: 'none'
+  },
   'effect-chrome': {
+    name: 'chrome',
     style: 'grayscale',
     min: 0,
     max: 1,
-    step: 0.1,
+    step: 0.1
   },
   'effect-sepia': {
+    name: 'sepia',
     style: 'sepia',
     min: 0,
     max: 1,
-    step: 0.1,
+    step: 0.1
   },
   'effect-marvin': {
+    name: 'marvin',
     style: 'invert',
     min: 0,
     max: 100,
@@ -29,6 +35,7 @@ const IMAGE_EFFECTS = {
     unit: '%'
   },
   'effect-phobos': {
+    name: 'phobos',
     style: 'blur',
     min: 0,
     max: 3,
@@ -36,10 +43,11 @@ const IMAGE_EFFECTS = {
     unit: 'px'
   },
   'effect-heat': {
+    name: 'heat',
     style: 'brightness',
     min: 1,
     max: 3,
-    step: 0.1,
+    step: 0.1
   }
 };
 
@@ -110,7 +118,7 @@ const changeImageScaleClickHandler = (evt) => {
 };
 
 const changeImageStyle = (effect) => {
-  imageElement.classList.add(`effects__preview--${effect.replace('effect-', '')}`);
+  imageElement.classList.add(`effects__preview--${IMAGE_EFFECTS[effect].name}`);
   sliderElement.noUiSlider.updateOptions({
     range: {
       min: IMAGE_EFFECTS[effect].min,
@@ -132,9 +140,9 @@ const changeImageStyle = (effect) => {
 };
 
 const effectListClickHandler = (evt) => {
-  imageElement.removeAttribute('class');
-  imageElement.style.removeProperty('filter');
-  if(evt.target.id !== 'effect-none') {
+  imageElement.classList = '';
+  imageElement.style.filter = '';
+  if(evt.target.value !== IMAGE_EFFECTS['effect-none'].name) {
     sliderContainerElement.classList.remove('hidden');
     changeImageStyle(evt.target.id);
   } else {
@@ -142,15 +150,15 @@ const effectListClickHandler = (evt) => {
   }
 };
 
-const hidePostCreateModal = () => {
+const hidePostCreateModalHandler = () => {
   postCreateModalElement.classList.add('hidden');
   document.body.classList.remove('modal-open');
   imageUploadFormElement.reset();
-  imageElement.removeAttribute('style');
-  imageElement.removeAttribute('class');
+  imageElement.style = '';
+  imageElement.classList = '';
   sliderContainerElement.classList.add('hidden');
   pristine.reset();
-  postModalCloseButtonElement.removeEventListener('click', hidePostCreateModal);
+  postModalCloseButtonElement.removeEventListener('click', hidePostCreateModalHandler);
   window.removeEventListener('keydown', escPressHandler);
   changeImageScaleContainerElement.removeEventListener('click', changeImageScaleClickHandler);
   effectsListContainer.removeEventListener('change', effectListClickHandler);
@@ -162,7 +170,7 @@ function escPressHandler (evt) {
     if(evt.target === hashTagInputElement || evt.target === descriptionInputElement) {
       return;
     }
-    hidePostCreateModal();
+    hidePostCreateModalHandler();
   }
 }
 
@@ -182,7 +190,7 @@ const imageUploadHandler = (evt) => {
   postCreateModalElement.classList.remove('hidden');
   document.body.classList.add('modal-open');
   renderImagePreview(evt);
-  postModalCloseButtonElement.addEventListener('click', hidePostCreateModal);
+  postModalCloseButtonElement.addEventListener('click', hidePostCreateModalHandler);
   window.addEventListener('keydown', escPressHandler);
   changeImageScaleContainerElement.addEventListener('click', changeImageScaleClickHandler);
   effectsListContainer.addEventListener('change', effectListClickHandler);
@@ -197,7 +205,7 @@ function uploadFormSubmitHandler (evt) {
       () => {
         formSubmitButtonElement.disabled = false;
         showModalSuccessFormSubmitted();
-        hidePostCreateModal();
+        hidePostCreateModalHandler();
       },
       () => {
         formSubmitButtonElement.disabled = false;
