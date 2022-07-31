@@ -158,6 +158,7 @@ const hidePostCreateModalHandler = () => {
   imageElement.classList = '';
   sliderContainerElement.classList.add('hidden');
   pristine.reset();
+
   postModalCloseButtonElement.removeEventListener('click', hidePostCreateModalHandler);
   window.removeEventListener('keydown', escPressHandler);
   changeImageScaleContainerElement.removeEventListener('click', changeImageScaleClickHandler);
