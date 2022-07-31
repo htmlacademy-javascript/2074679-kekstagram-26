@@ -1,51 +1,47 @@
 import { checkIsEscPressed } from './utils.js';
 
-const successModalElement = document.querySelector('#success').content.querySelector('.success');
-const successModalCloseButtonElement = successModalElement.querySelector('.success__button');
-const errorModalElement = document.querySelector('#error').content.querySelector('.error');
-const errorModalCloseButtonElement = errorModalElement.querySelector('.error__button');
+const MODAL_TEMPLATES = {
+  success: {
+    name: 'success'
+  },
+  error: {
+    name: 'error'
+  }
+};
+
+let activeModal;
+
+const hideModal = () => {
+  document.body.removeChild(activeModal);
+  activeModal.removeEventListener('click', modalClickHandler);
+  window.removeEventListener('keydown', escPressHandler, true);
+};
+
+function modalClickHandler (evt) {
+  const modalCloseButtonElement = activeModal.querySelector('.close-modal__button');
+  if(evt.target === activeModal || evt.target === modalCloseButtonElement) {
+    hideModal();
+  }
+}
+
+const showModal = (modalTemplate) => {
+  activeModal = document.querySelector(`#${modalTemplate.name}`).content.querySelector(`.${modalTemplate.name}`).cloneNode(true);
+  document.body.append(activeModal);
+  activeModal.addEventListener('click', modalClickHandler);
+  window.addEventListener('keydown', escPressHandler, true);
+};
 
 export const showModalSuccessFormSubmitted = () => {
-  if(!document.querySelector('.success')) {
-    document.body.append(successModalElement);
-  } else {
-    successModalElement.classList.remove('hidden');
-  }
-  successModalCloseButtonElement.addEventListener('click', hideModal, {once: true});
-  window.addEventListener('keydown', escPressHandler, true);
-  successModalElement.addEventListener('click', outsideModalClickHandler);
+  showModal(MODAL_TEMPLATES.success);
 };
 
 export const showModalFailFormSubmitted = () => {
-  if(!document.querySelector('.error')) {
-    document.body.append(errorModalElement);
-  } else {
-    errorModalElement.classList.remove('hidden');
-  }
-  errorModalCloseButtonElement.addEventListener('click', hideModal, {once: true});
-  window.addEventListener('keydown', escPressHandler, true);
-  errorModalElement.addEventListener('click', outsideModalClickHandler);
+  showModal(MODAL_TEMPLATES.error);
 };
 
-function hideModal () {
-  const modalWindowNotification = document.querySelector('.notification');
-  modalWindowNotification.classList.add('hidden');
-  window.removeEventListener('keydown', escPressHandler, true);
-  successModalElement.removeEventListener('click', outsideModalClickHandler);
-  errorModalElement.removeEventListener('click', outsideModalClickHandler);
-  successModalCloseButtonElement.removeEventListener('click', hideModal, {once: true});
-  errorModalCloseButtonElement.removeEventListener('click', hideModal, {once: true});
-}
-
 function escPressHandler (evt) {
-  if(checkIsEscPressed(evt)){
-    hideModal();
+  if(checkIsEscPressed(evt)) {
     evt.stopImmediatePropagation();
-  }
-}
-
-function outsideModalClickHandler (evt) {
-  if(!evt.target.closest('.error__inner') && !evt.target.closest('.success__inner')) {
     hideModal();
   }
 }
